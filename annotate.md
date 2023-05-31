@@ -51,3 +51,5 @@ insert_final_newline = true coloquei estes dois em true (Para que ele coloque um
 ## 3 - Um boa pratica é colocar throw new error no catch , ou retornar um objeto com uma mensagem , para que caso aconteça algum erro mostre na resposta da requisição e não somente no console.
 
 ## 4 - Boa prática, colocar tanto o controller quanto o service dentro de um "try" , "catch" para ter acesso a informações de erro melhor , para caso aconteça um erro voce ter acesso melhor , se for no controller enviei o erro com um res , se for no service, utilize um throw new error ou então retorne um obejeto com as informações que voce deseja enviar como erro no catch.
+
+## 5 - Sempre lembrar de quando for adicionar alguma coisa no header do insomnia para enviar , voce tem que criar outro campo com o nome =>No campo "Header", digite "Content-Type". No campo "Value", digite "application/json".

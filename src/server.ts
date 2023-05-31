@@ -1,6 +1,8 @@
 import dotenv from "dotenv"
 dotenv.config()
-import app from "./index"
+import { app } from "."
+import express from "express"
+app.use(express.json())
 
 const PORT = process.env.PORT
 

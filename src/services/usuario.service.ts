@@ -73,24 +73,33 @@ export const deleteUserService = async (cpf:any) =>{
 
 
 //Rota que vai dar update No email ou no nome do usuário
-import { IUpdatedUser } from "../interfaces/IupdateUser"
-export const updateUserService = async ({Email , name , cpf}:IUpdatedUser) =>{
-    try {
-        const userCpf = await serviceUser.findOne({cpf})
-        if(!userCpf){
-            return {
-                statusCode:400,
-                message:"user Not Found"
-            }
-        }
-        
-        const userUpdated = await serviceUser.findOneAndUpdate({cpf: cpf}, {Email:Email , name:name}, {new: true}) //Esse new:true é exatamente , o que vai certificar de que , o antigo documento seja substituido pelo novo, pasei o cpf com chaves distintas, separada do email e name , para avisar que eu vou pesquisar pelo cp
-        console.log('Obejto atualizado: ', userUpdated)
-        return userUpdated
-    } catch (error) {
-        throw new Error("Erro na sua requisição " + error)
+
+export const updateUserService = async (cpf, { name, Email }) => {
+  try {
+    const user = await serviceUser.findOne({ cpf });
+    if (!user) {
+      return {
+        statusCode: 400,
+        message: 'User not found',
+      };
     }
-}
+
+    const userUpdated = await serviceUser.findOneAndUpdate({ cpf }, { name, Email }, { new: true });
+    return {
+      statusCode: 200,
+      message: 'User updated successfully',
+      user: {
+        name: userUpdated?.name,
+        Email: userUpdated?.Email,
+        cpf: userUpdated?.cpf,
+      },
+    };
+    
+  } catch (error) {
+    throw new Error(`Error updating user: ${error}`);
+  }
+};
+
 
 
 //Rota que vai pegar cada usuário baseado no seu cpf

@@ -70,30 +70,21 @@ export const userController = {
         }
     },
 
-    //Rota que vai dar update no usuário, em seu nome ou email
-    updateUser:async ( req:Request , res:Response):Promise<void> =>{
-       try {
-        const cpfUser = req.headers.cpf
-        const {name , Email} = req.body
-
-
-        const updatedUser = await updateUserService({Email:Email , name:name , cpf:cpfUser})
-        console.log(`Objeto recebido pelo controlador ` , updatedUser)
-        res.status(200).json({
-            message:"Usuário atualizado com sucesso",
-            statusCode:200,
-            data:updatedUser
-
-
-        })
-       } catch (error) {
+//Rota que vai dar update no usuário, em seu nome ou email
+    updateUser: async(req:Request, res:Response) => {
+    try {
+        const  cpf  = req.headers.cpf
+        const {name , Email } = req.body
+        const result = await updateUserService(cpf, { name, Email });
+        res.status(result.statusCode).json(result);
+    } catch (error) {
         res.status(500).json({
-            message:"Erro na sua requisição" + error,
-            statusCode:500
-        })
-       }
-        
+        message: `Error updating user: ${error}`,
+        statusCode: 500,
+        });
+    }
     },
+
 
     //Rota que vai pegar cada usuário pelo seu cpf
     getByCpf:async (req:Request , res:Response):Promise<void> =>{

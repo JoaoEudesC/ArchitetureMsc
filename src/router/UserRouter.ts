@@ -29,7 +29,7 @@ router.post("/createUser"   , CheckingCpf, userController.createUser)
 router.delete("/deleteUser" ,CheckingCpfExistance  ,  userController.deleteUser)
 
 //Rota que vai permitir update do nome e do email do usuário
-router.patch("/updateUser" , CheckingCpfExistance , userController.updateUser)
+router.put("/updateUser" , userController.updateUser)
 
 //Rota que vai pegar cada usuário pelo seu cpf
 router.get("/getByCpf" , CheckingCpfExistance , userController.getByCpf)
